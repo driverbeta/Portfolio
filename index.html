@@ -44,10 +44,12 @@ body {
   overflow-x: hidden;
 }
 
+/* ══ SCROLLBAR ══════════════════════════════ */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--off-white); }
 ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 3px; }
 
+/* ══ NAV ════════════════════════════════════ */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -132,6 +134,7 @@ nav {
 .nav-links a:hover { color: var(--gold); }
 .nav-links a:hover::after { width: 100%; }
 
+/* ══ HERO ════════════════════════════════════ */
 .hero {
   min-height: 100vh;
   background: var(--navy);
@@ -142,6 +145,7 @@ nav {
   padding-top: 68px;
 }
 
+/* Diagonal geometric background */
 .hero-bg-lines {
   position: absolute;
   inset: 0;
@@ -167,6 +171,7 @@ nav {
   pointer-events: none;
 }
 
+/* Tricolore stripe */
 .hero-tricolore {
   position: absolute;
   top: 0; left: 0;
@@ -424,6 +429,7 @@ nav {
   border-radius: 2px;
 }
 
+/* ══ STATS ══════════════════════════════════ */
 .stats-band {
   background: var(--navy-soft);
   border-top: 1px solid rgba(201,168,76,0.2);
@@ -486,6 +492,7 @@ nav {
   50% { opacity: 0.5; transform: scale(0.85); }
 }
 
+/* ══ SECTIONS ═══════════════════════════════ */
 .section {
   padding: 100px 72px;
   max-width: 1280px;
@@ -544,6 +551,7 @@ h2 {
   border-radius: 1px;
 }
 
+/* ══ ABOUT ══════════════════════════════════ */
 .about-layout {
   display: grid;
   grid-template-columns: 3fr 2fr;
@@ -624,6 +632,7 @@ h2 {
   font-weight: 500;
 }
 
+/* ══ FORMATIONS ═════════════════════════════ */
 .formations-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -704,6 +713,7 @@ h2 {
   line-height: 1.75;
 }
 
+/* ══ BOOK SECTION ═══════════════════════════ */
 .book-wrapper {
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -822,6 +832,7 @@ h2 {
   border-color: var(--navy);
 }
 
+/* ══ COMPETENCES ════════════════════════════ */
 .skills-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -888,6 +899,7 @@ h2 {
   margin-top: 28px;
 }
 
+/* ══ PARCOURS ═══════════════════════════════ */
 .parcours-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -969,6 +981,7 @@ h2 {
   line-height: 1.75;
 }
 
+/* ══ LANGUES ════════════════════════════════ */
 .langues-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1136,6 +1149,7 @@ footer::before {
 .footer-republic .tricolore-mini span:nth-child(2) { flex: 1; background: var(--white); }
 .footer-republic .tricolore-mini span:nth-child(3) { flex: 1; background: #ED2939; }
 
+/* ══ ANIMATIONS ═════════════════════════════ */
 .reveal {
   opacity: 0;
   transform: translateY(32px);
@@ -1153,6 +1167,7 @@ footer::before {
 .reveal:nth-child(5) { transition-delay: 0.4s; }
 .reveal:nth-child(6) { transition-delay: 0.5s; }
 
+/* ══ CHATBOT ════════════════════════════════ */
 #chat-btn {
   position: fixed;
   bottom: 28px; right: 28px;
@@ -1417,6 +1432,7 @@ footer::before {
 
 .chat-send:hover { background: var(--blue-mid); }
 
+/* MSG Tab */
 .msg-form {
   padding: 14px;
   display: flex;
@@ -1500,6 +1516,7 @@ footer::before {
   to { opacity: 0; transform: translateX(-20px); }
 }
 
+/* ══ RESPONSIVE ═════════════════════════════ */
 @media (max-width: 1024px) {
   nav { padding: 0 28px; }
   .nav-links { display: none; }
@@ -1524,6 +1541,7 @@ footer::before {
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="nav-brand">
     <div class="nav-seal">AL</div>
@@ -1842,6 +1860,7 @@ footer::before {
 </section>
 </div>
 
+<!-- PARCOURS -->
 <div class="section-full bg-off">
 <section class="section" id="parcours">
   <div class="sec-head">
@@ -1904,6 +1923,7 @@ footer::before {
 </section>
 </div>
 
+<!-- LANGUES -->
 <div class="section-full">
 <section class="section">
   <div class="sec-head">
@@ -1920,6 +1940,7 @@ footer::before {
 </section>
 </div>
 
+<!-- FOOTER -->
 <footer id="contact">
   <div class="footer-grid">
     <div class="footer-brand">
@@ -1960,12 +1981,14 @@ footer::before {
   </div>
 </footer>
 
-<!-- CHATBOT + MESSAGERIE -->
+<!-- REMPLACE LE BLOC CHATBOT EXISTANT DANS index.html -->
+<!-- De "#chat-btn" jusqu'à la fin du script chatbot -->
+
 <div id="notif-area"></div>
 
 <div id="chat-btn" onclick="toggleChat()">
   💬
-  <div class="chat-badge" id="chat-badge">1</div>
+  <div class="chat-badge" id="chat-badge"></div>
 </div>
 
 <div id="chat-panel">
@@ -1974,212 +1997,262 @@ footer::before {
       <div class="chat-avatar">AL</div>
       <div>
         <h4>Assistant A. Lacheheb</h4>
-        <p><span class="online-dot"></span> En ligne · Répond rapidement</p>
+        <p><span class="online-dot"></span> En ligne</p>
       </div>
     </div>
     <button class="chat-close" onclick="toggleChat()">✕</button>
   </div>
 
   <div class="chat-tabs">
-    <button class="chat-tab active" onclick="switchTab('bot')">🤖 Assistant IA</button>
-    <button class="chat-tab" onclick="switchTab('msg')">✉️ Message</button>
+    <button class="chat-tab active" id="tab-bot" onclick="switchTab('bot')">🤖 Assistant IA</button>
+    <button class="chat-tab"        id="tab-msg" onclick="switchTab('msg')">✉️ Messagerie</button>
   </div>
 
-  <!-- BOT TAB -->
+  <!-- BOT -->
   <div class="chat-pane active" id="pane-bot">
     <div class="chat-messages" id="chat-messages">
-      <div class="chat-msg bot">Bonjour ! Je suis l'assistant virtuel d'Abderrahmane LACHEHEB. Posez-moi vos questions sur son parcours, ses formations ou ses projets. 👋</div>
+      <div class="chat-msg bot">Bonjour ! Je suis l'assistant de M. Lacheheb. Posez-moi vos questions. 👋</div>
     </div>
-    <div class="chat-typing" id="chat-typing">
-      <span></span><span></span><span></span>
-    </div>
+    <div class="chat-typing" id="chat-typing"><span></span><span></span><span></span></div>
     <div class="chat-input-row">
-      <input type="text" id="chat-input" placeholder="Votre question..." onkeydown="handleKey(event)">
-      <button class="chat-send" onclick="sendMessage()">➤</button>
+      <input type="text" id="chat-input" placeholder="Votre question..." onkeydown="if(event.key==='Enter') sendBotMessage()">
+      <button class="chat-send" onclick="sendBotMessage()">➤</button>
     </div>
   </div>
 
-  <!-- MSG TAB -->
+  <!-- MESSAGERIE -->
   <div class="chat-pane" id="pane-msg">
-    <div class="msg-form">
-      <input type="text" id="msg-name" placeholder="Votre nom / organisation" style="border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-family:'Outfit',sans-serif;font-size:0.84rem;outline:none;background:#f9fafc;">
-      <textarea id="msg-body" placeholder="Votre message pour M. Lacheheb..."></textarea>
-      <button class="msg-send-btn" onclick="sendUserMessage()">
-        <span>✉️</span> Envoyer le message
-      </button>
+    <!-- Vue: écrire un message -->
+    <div id="msg-compose" style="display:flex;flex-direction:column;flex:1;">
+      <div class="chat-messages" id="conv-messages" style="flex:1;"></div>
+      <div id="conv-status-bar" style="display:none;padding:8px 12px;font-size:0.72rem;text-align:center;"></div>
+      <div id="msg-input-area" class="chat-input-row" style="flex-direction:column;gap:8px;padding:12px;">
+        <input type="text" id="msg-name" placeholder="Votre nom (optionnel)" style="border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-family:'Outfit',sans-serif;font-size:0.82rem;outline:none;background:#f9fafc;width:100%;">
+        <div style="display:flex;gap:8px;">
+          <input type="text" id="msg-input" placeholder="Votre message..." onkeydown="if(event.key==='Enter') sendVisitorMessage()" style="flex:1;border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-family:'Outfit',sans-serif;font-size:0.82rem;outline:none;background:#f9fafc;">
+          <button class="chat-send" onclick="sendVisitorMessage()">➤</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-const API_BASE = 'https://api.abderrahmane-lacheheb.fr/';
-async function loadStats() {
-  try {
-    const res = await fetch(`${API_BASE}/stats`);
-    const data = await res.json();
-    document.getElementById('visitor-count').textContent = data.unique_visitors ?? '—';
-    const todayEl = document.getElementById('today-count');
-    todayEl.innerHTML = `<span class="live-dot"></span>${data.today_visits ?? '—'}`;
-  } catch(e) {
-    console.log('Stats API not reachable yet:', e.message);
-  }
+const API_BASE = 'https://api.abderrahmane-lacheheb.fr';
+let chatOpen     = false;
+let activeTab    = 'bot';
+let visitorId    = localStorage.getItem('lacheheb_vid') || genId();
+let visitorName  = localStorage.getItem('lacheheb_name') || '';
+let pollInterval = null;
+let lastMsgCount = 0;
+let convStatus   = 'open';
+
+localStorage.setItem('lacheheb_vid', visitorId);
+
+function genId() {
+  const id = 'v_' + Math.random().toString(36).substr(2,9) + '_' + Date.now();
+  localStorage.setItem('lacheheb_vid', id);
+  return id;
 }
 
-async function trackVisit() {
-  try {
-    await fetch(`${API_BASE}/track`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ page: 'home', ts: Date.now() })
-    });
-  } catch(e) {}
-}
-
-let chatOpen = false;
-
+// ── UI ────────────────────────────────────────────────────────
 function toggleChat() {
   chatOpen = !chatOpen;
   document.getElementById('chat-panel').classList.toggle('open', chatOpen);
   document.getElementById('chat-badge').style.display = 'none';
-  if (chatOpen) document.getElementById('chat-input').focus();
+  document.getElementById('chat-badge').textContent   = '';
+  if (chatOpen && activeTab === 'msg') loadConversation();
 }
 
 function switchTab(tab) {
+  activeTab = tab;
   document.querySelectorAll('.chat-pane').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.chat-tab').forEach(t => t.classList.remove('active'));
   document.getElementById('pane-' + tab).classList.add('active');
-  event.target.classList.add('active');
+  document.getElementById('tab-'  + tab).classList.add('active');
+  if (tab === 'msg') loadConversation();
 }
 
-function appendMsg(text, role) {
+function showToast(text, duration = 4000) {
+  const area = document.getElementById('notif-area');
+  const t    = document.createElement('div');
+  t.className   = 'notif-toast';
+  t.textContent = text;
+  area.appendChild(t);
+  setTimeout(() => t.remove(), duration);
+}
+
+// ── BOT ───────────────────────────────────────────────────────
+function appendBotMsg(text, role) {
   const box = document.getElementById('chat-messages');
-  const d = document.createElement('div');
-  d.className = 'chat-msg ' + role;
+  const d   = document.createElement('div');
+  d.className   = 'chat-msg ' + role;
   d.textContent = text;
   box.appendChild(d);
   box.scrollTop = box.scrollHeight;
 }
 
-function handleKey(e) {
-  if (e.key === 'Enter') sendMessage();
-}
-
-async function sendMessage() {
+async function sendBotMessage() {
   const input = document.getElementById('chat-input');
-  const q = input.value.trim();
+  const q     = input.value.trim();
   if (!q) return;
   input.value = '';
-  appendMsg(q, 'user');
-
+  appendBotMsg(q, 'user');
   const typing = document.getElementById('chat-typing');
   typing.style.display = 'flex';
-
   try {
-    const res = await fetch(`${API_BASE}/chat`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: q })
-    });
+    const res  = await fetch(`${API_BASE}/chat`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ message: q }) });
     const data = await res.json();
     typing.style.display = 'none';
-    appendMsg(data.reply || "Désolé, je n'ai pas pu répondre.", 'bot');
-  } catch(e) {
+    appendBotMsg(data.reply || "Désolé, pas de réponse.", 'bot');
+  } catch {
     typing.style.display = 'none';
-    appendMsg("Erreur de connexion. Réessayez dans un instant.", 'bot');
-  }
-}
-let visitorId = localStorage.getItem('lacheheb_vid') || generateId();
-localStorage.setItem('lacheheb_vid', visitorId);
-
-function generateId() {
-  return 'v_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
-}
-
-async function sendUserMessage() {
-  const name = document.getElementById('msg-name').value.trim();
-  const body = document.getElementById('msg-body').value.trim();
-  if (!body) return showToast('⚠️ Écrivez un message avant d\'envoyer.');
-
-  const btn = document.querySelector('.msg-send-btn');
-  btn.textContent = '⏳ Envoi...';
-  btn.disabled = true;
-
-  try {
-    const res = await fetch(`${API_BASE}/message`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name || 'Anonyme', body, visitor_id: visitorId })
-    });
-    const data = await res.json();
-    if (data.ok) {
-      document.getElementById('msg-body').value = '';
-      document.getElementById('msg-name').value = '';
-      showToast('✅ Message envoyé à M. Lacheheb !');
-      btn.textContent = '✓ Envoyé';
-      setTimeout(() => {
-        btn.textContent = '✉️ Envoyer le message';
-        btn.disabled = false;
-      }, 3000);
-      pollForReply(data.msg_id);
-    }
-  } catch(e) {
-    showToast('❌ Erreur réseau. Réessayez.');
-    btn.textContent = '✉️ Envoyer le message';
-    btn.disabled = false;
+    appendBotMsg("Erreur de connexion.", 'bot');
   }
 }
 
-async function pollForReply(msgId) {
-  // Vérifie toutes les 30s pendant 30 minutes
-  let attempts = 0;
-  const maxAttempts = 60;
-  const interval = setInterval(async () => {
-    attempts++;
-    if (attempts > maxAttempts) { clearInterval(interval); return; }
-    try {
-      const res = await fetch(`${API_BASE}/reply-check?msg_id=${msgId}`);
-      const data = await res.json();
-      if (data.replied && data.reply) {
-        clearInterval(interval);
-        showToast(`💬 Réponse reçue : "${data.reply.substring(0, 60)}${data.reply.length > 60 ? '…' : ''}"`, 6000);
-        document.getElementById('chat-badge').style.display = 'flex';
-        document.getElementById('chat-badge').textContent = '!';
+// ── MESSAGERIE ────────────────────────────────────────────────
+async function loadConversation() {
+  try {
+    const res  = await fetch(`${API_BASE}/messages?visitor_id=${visitorId}`);
+    const data = await res.json();
+    convStatus   = data.status || 'open';
+    lastMsgCount = (data.messages || []).length;
+    renderConversation(data.messages || [], data.status);
+  } catch { renderConversation([], 'open'); }
+}
+
+function renderConversation(messages, status) {
+  const box    = document.getElementById('conv-messages');
+  const input  = document.getElementById('msg-input-area');
+  const sbar   = document.getElementById('conv-status-bar');
+  const nameEl = document.getElementById('msg-name');
+
+  if (visitorName) nameEl.value = visitorName;
+
+  box.innerHTML = '';
+
+  if (messages.length === 0) {
+    box.innerHTML = `<div style="text-align:center;color:var(--text-muted);font-size:0.82rem;padding:20px;">
+      Envoyez un message à M. Lacheheb.<br>Il vous répondra dès que possible. 👋
+    </div>`;
+  } else {
+    messages.forEach(msg => {
+      const d = document.createElement('div');
+      if (msg.from === 'system') {
+        d.style.cssText = 'text-align:center;font-size:0.7rem;color:var(--text-muted);padding:6px;font-style:italic;';
+        d.textContent   = msg.body;
+      } else {
+        d.className   = 'chat-msg ' + (msg.from === 'visitor' ? 'user' : 'bot');
+        d.textContent = msg.body;
+        // Timestamp
+        const ts = document.createElement('div');
+        ts.style.cssText = `font-size:0.6rem;opacity:0.5;margin-top:3px;text-align:${msg.from==='visitor'?'right':'left'}`;
+        ts.textContent   = new Date(msg.ts).toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'});
+        d.appendChild(ts);
       }
-    } catch(e) {}
-  }, 30000);
+      box.appendChild(d);
+    });
+    box.scrollTop = box.scrollHeight;
+  }
+
+  // Statut de la conversation
+  if (status === 'closed') {
+    sbar.style.display    = 'block';
+    sbar.style.background = '#fef3c7';
+    sbar.style.color      = '#92400e';
+    sbar.textContent      = '🔒 Conversation clôturée par M. Lacheheb';
+    input.style.display   = 'none';
+  } else if (status === 'blocked') {
+    sbar.style.display    = 'block';
+    sbar.style.background = '#fee2e2';
+    sbar.style.color      = '#991b1b';
+    sbar.textContent      = '🚫 Vous avez été bloqué';
+    input.style.display   = 'none';
+  } else {
+    sbar.style.display    = 'none';
+    input.style.display   = 'flex';
+  }
 }
 
-function showToast(text, duration = 4000) {
-  const area = document.getElementById('notif-area');
-  const t = document.createElement('div');
-  t.className = 'notif-toast';
-  t.innerHTML = `<span>${text}</span>`;
-  area.appendChild(t);
-  setTimeout(() => t.remove(), duration);
-}
-const revealObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+async function sendVisitorMessage() {
+  if (convStatus === 'closed' || convStatus === 'blocked') return;
+  const input  = document.getElementById('msg-input');
+  const nameEl = document.getElementById('msg-name');
+  const body   = input.value.trim();
+  if (!body) return;
 
-const skillObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('.skill-fill').forEach((bar, i) => {
-        setTimeout(() => {
-          bar.style.width = (parseFloat(bar.dataset.w) * 100) + '%';
-          bar.classList.add('animated');
-        }, i * 80);
-      });
+  const name = nameEl.value.trim() || 'Anonyme';
+  if (nameEl.value.trim()) {
+    visitorName = nameEl.value.trim();
+    localStorage.setItem('lacheheb_name', visitorName);
+  }
+
+  input.value = '';
+
+  try {
+    const res  = await fetch(`${API_BASE}/message`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, body, visitor_id: visitorId }),
+    });
+    const data = await res.json();
+    if (data.error === 'blocked') {
+      convStatus = 'blocked';
+      showToast('🚫 Vous avez été bloqué.');
+    } else if (data.error === 'closed') {
+      convStatus = 'closed';
+      showToast('🔒 Cette conversation est clôturée.');
+    } else if (data.ok) {
+      await loadConversation();
+      showToast('✅ Message envoyé !');
     }
-  });
-}, { threshold: 0.2 });
-document.querySelectorAll('.skills-grid').forEach(el => skillObs.observe(el));
+  } catch {
+    showToast('❌ Erreur réseau. Réessayez.');
+  }
+}
 
+// ── POLLING (vérifie nouvelles réponses toutes les 15s) ───────
+function startPolling() {
+  if (pollInterval) clearInterval(pollInterval);
+  pollInterval = setInterval(async () => {
+    try {
+      const res  = await fetch(`${API_BASE}/reply-check?visitor_id=${visitorId}&last_count=${lastMsgCount}`);
+      const data = await res.json();
+      if (data.new_messages && data.total > lastMsgCount) {
+        lastMsgCount = data.total;
+        // Notif si le panel est fermé ou sur l'onglet bot
+        if (!chatOpen || activeTab !== 'msg') {
+          const adminMsgs = (data.messages || []).filter(m => m.from === 'admin');
+          if (adminMsgs.length > 0) {
+            const last = adminMsgs[adminMsgs.length - 1];
+            showToast(`💬 Réponse de M. Lacheheb : "${last.body.substring(0, 50)}${last.body.length > 50 ? '…' : ''}"`);
+            const badge = document.getElementById('chat-badge');
+            badge.style.display = 'flex';
+            badge.textContent   = '!';
+          }
+        }
+        if (chatOpen && activeTab === 'msg') {
+          renderConversation(data.messages, data.status);
+        }
+        if (data.status !== 'open') convStatus = data.status;
+      }
+    } catch {}
+  }, 15000);
+}
+
+// ── INIT ──────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
-  trackVisit();
-  loadStats();
+  fetch(`${API_BASE}/track`, { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' }).catch(()=>{});
+  fetch(`${API_BASE}/stats`).then(r=>r.json()).then(data => {
+    if (document.getElementById('visitor-count')) document.getElementById('visitor-count').textContent = data.unique_visitors ?? '—';
+    if (document.getElementById('today-count')) {
+      document.getElementById('today-count').innerHTML = `<span class="live-dot"></span>${data.today_visits ?? '—'}`;
+    }
+  }).catch(()=>{});
+  startPolling();
 });
 </script>
+
 </body>
 </html>
