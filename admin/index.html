@@ -4,567 +4,155 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin · A. Lacheheb</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy: #0a1628;
-  --navy-mid: #0f2040;
-  --blue: #1a4a8a;
-  --blue-mid: #2563b0;
-  --gold: #c9a84c;
-  --white: #ffffff;
-  --off: #f7f8fc;
-  --text: #0d1b2e;
-  --muted: #6b7c96;
-  --border: #dde4ef;
-  --green: #22c55e;
-  --red: #ef4444;
-  --shadow: 0 4px 24px rgba(10,22,40,0.1);
+  --navy:#0a1628; --blue:#1a4a8a; --blue-mid:#2563b0;
+  --gold:#c9a84c; --white:#fff; --off:#f7f8fc;
+  --text:#0d1b2e; --muted:#6b7c96; --border:#dde4ef;
+  --green:#22c55e; --red:#ef4444; --amber:#f59e0b;
+  --shadow:0 4px 24px rgba(10,22,40,0.1);
 }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--off);font-family:'Outfit',sans-serif;color:var(--text);min-height:100vh;}
 
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-body { background: var(--off); font-family: 'Outfit', sans-serif; color: var(--text); min-height: 100vh; }
+/* LOGIN */
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--navy);}
+.login-box{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:48px 40px;width:100%;max-width:380px;position:relative;}
+.login-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);border-radius:12px 12px 0 0;}
+.login-logo{width:56px;height:56px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:var(--navy);margin:0 auto 24px;font-family:'Space Mono',monospace;}
+.login-title{text-align:center;font-size:1.3rem;font-weight:600;color:var(--white);margin-bottom:6px;}
+.login-sub{text-align:center;font-size:0.72rem;color:rgba(255,255,255,0.4);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:36px;}
+.login-box input{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);border-radius:8px;padding:14px 16px;font-family:'Space Mono',monospace;font-size:1.5rem;color:var(--white);text-align:center;letter-spacing:8px;outline:none;transition:border-color 0.2s;margin-bottom:16px;}
+.login-box input:focus{border-color:var(--gold);}
+.login-btn{width:100%;background:var(--gold);color:var(--navy);border:none;border-radius:8px;padding:14px;font-size:0.78rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.login-btn:hover{background:#f0d080;}
+.login-error{color:var(--red);font-size:0.78rem;text-align:center;margin-top:12px;display:none;}
 
-/* ── LOGIN ── */
-#login-screen {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--navy);
-  position: relative;
-  overflow: hidden;
-}
+/* NAV */
+#admin-panel{display:none;}
+.admin-nav{background:var(--navy);border-bottom:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:60px;position:sticky;top:0;z-index:100;}
+.admin-brand{display:flex;align-items:center;gap:10px;font-weight:600;color:var(--white);font-size:0.88rem;}
+.admin-brand .dot{width:8px;height:8px;background:var(--gold);border-radius:50%;}
+.nav-btns{display:flex;gap:8px;}
+.btn-sm{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:6px 12px;font-size:0.7rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,0.7);cursor:pointer;transition:all 0.2s;text-decoration:none;}
+.btn-sm:hover{background:rgba(255,255,255,0.15);color:var(--white);}
+.btn-danger{background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.3);color:#fca5a5;}
 
-#login-screen::before {
-  content: '';
-  position: absolute;
-  top: -200px; right: -200px;
-  width: 700px; height: 700px;
-  background: radial-gradient(ellipse, rgba(26,74,138,0.3) 0%, transparent 65%);
-}
+/* LAYOUT */
+.admin-layout{display:grid;grid-template-columns:340px 1fr;height:calc(100vh - 60px);}
 
-.login-box {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 12px;
-  padding: 48px 40px;
-  width: 100%;
-  max-width: 380px;
-  position: relative;
-  z-index: 1;
-  backdrop-filter: blur(10px);
-}
+/* SIDEBAR */
+.sidebar{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;background:var(--white);}
+.sidebar-head{padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.sidebar-head h3{font-size:0.82rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
+.conv-list{flex:1;overflow-y:auto;}
+.conv-item{padding:14px 16px;border-bottom:1px solid var(--border-soft,#edf1f8);cursor:pointer;transition:background 0.2s;display:flex;flex-direction:column;gap:4px;position:relative;}
+.conv-item:hover{background:var(--off);}
+.conv-item.active{background:#eff6ff;border-left:3px solid var(--blue-mid);}
+.conv-item.unread .conv-name::after{content:'●';color:var(--blue-mid);font-size:0.5rem;vertical-align:middle;margin-left:6px;}
+.conv-name{font-size:0.88rem;font-weight:600;color:var(--text);display:flex;align-items:center;gap:6px;}
+.conv-preview{font-size:0.75rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px;}
+.conv-meta{display:flex;align-items:center;gap:8px;}
+.conv-time{font-size:0.65rem;color:var(--muted);font-family:'Space Mono',monospace;}
+.badge{font-size:0.58rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:3px;}
+.badge.open{background:rgba(37,99,176,0.1);color:var(--blue-mid);}
+.badge.closed{background:rgba(107,114,128,0.1);color:var(--muted);}
+.badge.blocked{background:rgba(239,68,68,0.1);color:var(--red);}
+.unread-dot{width:8px;height:8px;background:var(--blue-mid);border-radius:50%;position:absolute;top:14px;right:14px;flex-shrink:0;}
 
-.login-box::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  border-radius: 12px 12px 0 0;
-}
+/* MAIN */
+.conv-main{display:flex;flex-direction:column;overflow:hidden;}
+.conv-main-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--white);}
+.conv-main-head h2{font-size:1rem;font-weight:600;color:var(--text);}
+.conv-main-head p{font-size:0.72rem;color:var(--muted);}
+.conv-actions{display:flex;gap:8px;}
+.btn-close-conv{background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:6px;padding:6px 12px;font-size:0.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--amber);cursor:pointer;transition:all 0.2s;}
+.btn-close-conv:hover{background:rgba(245,158,11,0.2);}
+.btn-block-conv{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:6px;padding:6px 12px;font-size:0.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--red);cursor:pointer;transition:all 0.2s;}
+.btn-block-conv:hover{background:rgba(239,68,68,0.2);}
+.btn-reopen-conv{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);border-radius:6px;padding:6px 12px;font-size:0.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#16a34a;cursor:pointer;transition:all 0.2s;}
 
-.login-logo {
-  width: 56px; height: 56px;
-  background: var(--gold);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--navy);
-  margin: 0 auto 24px;
-  font-family: 'Space Mono', monospace;
-}
+/* MESSAGES */
+.conv-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;background:#f9fafc;}
+.msg-bubble{max-width:80%;border-radius:10px;padding:10px 14px;font-size:0.85rem;line-height:1.5;}
+.msg-bubble.visitor{background:var(--navy);color:var(--white);border-bottom-right-radius:4px;align-self:flex-end;}
+.msg-bubble.admin{background:var(--white);border:1px solid var(--border);color:var(--text);border-bottom-left-radius:4px;align-self:flex-start;}
+.msg-bubble.system{background:transparent;border:none;color:var(--muted);font-size:0.72rem;font-style:italic;text-align:center;align-self:center;padding:4px;}
+.msg-time{font-size:0.6rem;opacity:0.5;margin-top:3px;}
+.msg-time.right{text-align:right;}
 
-.login-title {
-  text-align: center;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--white);
-  margin-bottom: 6px;
-}
+/* REPLY */
+.conv-reply{padding:12px 16px;border-top:1px solid var(--border);background:var(--white);display:flex;gap:8px;}
+.conv-reply textarea{flex:1;border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:'Outfit',sans-serif;font-size:0.84rem;resize:none;height:72px;outline:none;transition:border-color 0.2s;}
+.conv-reply textarea:focus{border-color:var(--blue-mid);}
+.reply-send{background:var(--navy);color:var(--white);border:none;border-radius:8px;padding:10px 16px;font-size:0.8rem;font-weight:600;cursor:pointer;transition:background 0.2s;align-self:flex-end;}
+.reply-send:hover{background:var(--blue-mid);}
 
-.login-sub {
-  text-align: center;
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.4);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-bottom: 36px;
-}
+/* STATS */
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px;background:var(--white);border-bottom:1px solid var(--border);}
+.stat-mini{background:var(--off);border:1px solid var(--border);border-radius:8px;padding:12px 16px;text-align:center;}
+.stat-mini-num{font-family:'Space Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--navy);}
+.stat-mini-lbl{font-size:0.6rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
 
-.login-box input {
-  width: 100%;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 8px;
-  padding: 14px 16px;
-  font-family: 'Space Mono', monospace;
-  font-size: 1.5rem;
-  color: var(--white);
-  text-align: center;
-  letter-spacing: 8px;
-  outline: none;
-  transition: border-color 0.2s;
-  margin-bottom: 16px;
-}
+/* EMPTY */
+.empty-conv{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;color:var(--muted);font-size:0.9rem;gap:12px;}
+.empty-conv span{font-size:3rem;}
 
-.login-box input:focus { border-color: var(--gold); }
-.login-box input::placeholder { letter-spacing: 4px; font-size: 0.85rem; color: rgba(255,255,255,0.25); }
-
-.login-btn {
-  width: 100%;
-  background: var(--gold);
-  color: var(--navy);
-  border: none;
-  border-radius: 8px;
-  padding: 14px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.25s;
-}
-
-.login-btn:hover { background: #f0d080; transform: translateY(-1px); }
-
-.login-error {
-  color: var(--red);
-  font-size: 0.78rem;
-  text-align: center;
-  margin-top: 12px;
-  display: none;
-}
-
-/* ── ADMIN PANEL ── */
-#admin-panel { display: none; }
-
-.admin-nav {
-  background: var(--navy);
-  border-bottom: 1px solid rgba(201,168,76,0.2);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 32px;
-  height: 60px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.admin-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 600;
-  color: var(--white);
-  font-size: 0.9rem;
-}
-
-.admin-brand .dot {
-  width: 8px; height: 8px;
-  background: var(--gold);
-  border-radius: 50%;
-}
-
-.admin-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.btn-sm {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 6px;
-  padding: 7px 14px;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
-  cursor: pointer;
-  transition: all 0.2s;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.btn-sm:hover { background: rgba(255,255,255,0.15); color: var(--white); }
-
-.btn-logout {
-  background: rgba(239,68,68,0.15);
-  border-color: rgba(239,68,68,0.3);
-  color: #fca5a5;
-}
-
-.btn-logout:hover { background: rgba(239,68,68,0.25); }
-
-.admin-main {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 32px;
-}
-
-/* ── STAT CARDS ── */
-.admin-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 32px;
-}
-
-.astat {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 20px 22px;
-  box-shadow: var(--shadow);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.astat-icon {
-  width: 42px; height: 42px;
-  border-radius: 10px;
-  background: var(--navy);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  flex-shrink: 0;
-}
-
-.astat-num {
-  font-family: 'Space Mono', monospace;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--navy);
-  line-height: 1;
-  margin-bottom: 3px;
-}
-
-.astat-lbl {
-  font-size: 0.65rem;
-  color: var(--muted);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-/* ── MESSAGES ── */
-.section-title {
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.section-title::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--border);
-}
-
-.messages-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.msg-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 22px;
-  box-shadow: var(--shadow);
-  transition: border-color 0.2s;
-}
-
-.msg-card.unread { border-left: 3px solid var(--blue-mid); }
-.msg-card.replied { border-left: 3px solid var(--green); }
-
-.msg-card-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.msg-sender {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--text);
-}
-
-.msg-meta {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.msg-badge {
-  font-size: 0.6rem;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding: 3px 10px;
-  border-radius: 3px;
-}
-
-.msg-badge.new { background: rgba(37,99,176,0.1); color: var(--blue-mid); border: 1px solid rgba(37,99,176,0.2); }
-.msg-badge.done { background: rgba(34,197,94,0.1); color: #16a34a; border: 1px solid rgba(34,197,94,0.2); }
-
-.msg-time {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.62rem;
-  color: var(--muted);
-}
-
-.msg-ip {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.62rem;
-  color: var(--muted);
-  background: var(--off);
-  padding: 2px 8px;
-  border-radius: 3px;
-  border: 1px solid var(--border);
-}
-
-.msg-body {
-  font-size: 0.88rem;
-  color: var(--text);
-  line-height: 1.7;
-  margin-bottom: 14px;
-  padding: 12px 16px;
-  background: var(--off);
-  border-radius: 6px;
-}
-
-.msg-reply-area {
-  display: none;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.msg-reply-area.open { display: flex; }
-
-.msg-reply-area textarea {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 10px 12px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 0.84rem;
-  resize: none;
-  height: 80px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.msg-reply-area textarea:focus { border-color: var(--blue-mid); }
-
-.msg-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.btn-reply {
-  background: var(--navy);
-  color: var(--white);
-  border: none;
-  border-radius: 6px;
-  padding: 8px 16px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.btn-reply:hover { background: var(--blue-mid); }
-
-.btn-toggle {
-  background: var(--off);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 7px 14px;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  color: var(--text);
-  transition: all 0.2s;
-}
-
-.btn-toggle:hover { background: var(--border); }
-
-.replied-msg {
-  background: rgba(34,197,94,0.06);
-  border: 1px solid rgba(34,197,94,0.2);
-  border-radius: 6px;
-  padding: 10px 14px;
-  font-size: 0.82rem;
-  color: #16a34a;
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 60px 20px;
-  color: var(--muted);
-}
-
-.empty-state .emoji { font-size: 3rem; margin-bottom: 12px; display: block; }
-.empty-state p { font-size: 0.9rem; }
-
-/* ── TOAST ── */
-#toast {
-  position: fixed;
-  bottom: 24px; right: 24px;
-  background: var(--navy);
-  color: var(--white);
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 0.82rem;
-  display: none;
-  border-left: 3px solid var(--gold);
-  z-index: 9999;
-  box-shadow: 0 8px 32px rgba(10,22,40,0.3);
-  animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-  from { transform: translateX(20px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-
-/* ── WEEK CHART (simple bars) ── */
-.week-chart {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 22px;
-  margin-bottom: 32px;
-  box-shadow: var(--shadow);
-}
-
-.week-chart h3 {
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 20px;
-}
-
-.chart-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 12px;
-  height: 80px;
-}
-
-.chart-bar-wrap {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  height: 100%;
-  justify-content: flex-end;
-}
-
-.chart-bar {
-  width: 100%;
-  background: var(--navy);
-  border-radius: 3px 3px 0 0;
-  min-height: 4px;
-  transition: height 0.6s ease;
-}
-
-.chart-label {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.55rem;
-  color: var(--muted);
-  text-align: center;
-}
+/* TOAST */
+#toast{position:fixed;bottom:20px;right:20px;background:var(--navy);color:var(--white);padding:12px 20px;border-radius:8px;font-size:0.82rem;display:none;border-left:3px solid var(--gold);z-index:9999;box-shadow:0 8px 32px rgba(10,22,40,0.3);}
 </style>
 </head>
 <body>
 
-<!-- ── LOGIN SCREEN ── -->
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">AL</div>
     <div class="login-title">Espace Administration</div>
     <div class="login-sub">Abderrahmane Lacheheb · Privé</div>
-    <input type="password" id="code-input" placeholder="Code d'accès" maxlength="6" onkeydown="if(event.key==='Enter') doLogin()">
+    <input type="password" id="code-input" placeholder="Code" maxlength="6" onkeydown="if(event.key==='Enter')doLogin()">
     <button class="login-btn" onclick="doLogin()">🔐 Accéder</button>
-    <div class="login-error" id="login-error">Code incorrect. Réessayez.</div>
+    <div class="login-error" id="login-error">Code incorrect.</div>
   </div>
 </div>
 
-<!-- ── ADMIN PANEL ── -->
+<!-- ADMIN -->
 <div id="admin-panel">
   <nav class="admin-nav">
-    <div class="admin-brand">
-      <div class="dot"></div>
-      Administration · A. Lacheheb
-    </div>
-    <div class="admin-actions">
+    <div class="admin-brand"><div class="dot"></div>Admin · A. Lacheheb</div>
+    <div class="nav-btns">
       <a href="/" class="btn-sm">← Site</a>
-      <button class="btn-sm" onclick="loadData()">🔄 Actualiser</button>
-      <button class="btn-sm btn-logout" onclick="logout()">Déconnexion</button>
+      <button class="btn-sm" onclick="loadAll()">🔄 Actualiser</button>
+      <button class="btn-sm btn-danger" onclick="logout()">Déconnexion</button>
     </div>
   </nav>
 
-  <div class="admin-main">
+  <!-- Stats -->
+  <div class="stats-bar" id="stats-bar">
+    <div class="stat-mini"><div class="stat-mini-num" id="s-unique">—</div><div class="stat-mini-lbl">Visiteurs uniques</div></div>
+    <div class="stat-mini"><div class="stat-mini-num" id="s-today">—</div><div class="stat-mini-lbl">Aujourd'hui</div></div>
+    <div class="stat-mini"><div class="stat-mini-num" id="s-convs">—</div><div class="stat-mini-lbl">Conversations</div></div>
+    <div class="stat-mini"><div class="stat-mini-num" id="s-unread">—</div><div class="stat-mini-lbl">Non lus</div></div>
+  </div>
 
-    <!-- Stats -->
-    <div class="admin-stats" id="admin-stats">
-      <div class="astat"><div class="astat-icon">👥</div><div><div class="astat-num" id="a-unique">—</div><div class="astat-lbl">Visiteurs uniques</div></div></div>
-      <div class="astat"><div class="astat-icon">📅</div><div><div class="astat-num" id="a-today">—</div><div class="astat-lbl">Aujourd'hui</div></div></div>
-      <div class="astat"><div class="astat-icon">✉️</div><div><div class="astat-num" id="a-msgs">—</div><div class="astat-lbl">Messages reçus</div></div></div>
-      <div class="astat"><div class="astat-icon">✅</div><div><div class="astat-num" id="a-replied">—</div><div class="astat-lbl">Répondus</div></div></div>
-    </div>
-
-    <!-- Graphique 7 jours -->
-    <div class="week-chart">
-      <h3>Visites — 7 derniers jours</h3>
-      <div class="chart-bars" id="week-chart-bars">
-        <!-- Généré dynamiquement -->
+  <div class="admin-layout">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-head">
+        <h3>Conversations</h3>
+        <span id="conv-count" style="font-size:0.72rem;color:var(--muted);"></span>
+      </div>
+      <div class="conv-list" id="conv-list">
+        <div style="padding:20px;text-align:center;color:var(--muted);font-size:0.82rem;">Chargement...</div>
       </div>
     </div>
 
-    <!-- Messages -->
-    <div class="section-title">Messages reçus</div>
-    <div class="messages-list" id="messages-list">
-      <div class="empty-state">
-        <span class="emoji">⏳</span>
-        <p>Chargement des messages...</p>
+    <!-- MAIN -->
+    <div class="conv-main" id="conv-main">
+      <div class="empty-conv">
+        <span>💬</span>
+        <p>Sélectionnez une conversation</p>
       </div>
     </div>
   </div>
@@ -573,188 +161,213 @@ body { background: var(--off); font-family: 'Outfit', sans-serif; color: var(--t
 <div id="toast"></div>
 
 <script>
-// ── CONFIG ────────────────────────────────────────────────────
-const API_BASE = 'http://node.bumpx.fr:4008';
+const API_BASE = 'https://api.abderrahmane-lacheheb.fr';
+let adminToken   = sessionStorage.getItem('admin_token');
+let activeConvId = null;
+let autoRefresh  = null;
 
-let adminToken = sessionStorage.getItem('admin_token');
 if (adminToken) showPanel();
 
 // ── AUTH ──────────────────────────────────────────────────────
 async function doLogin() {
   const code = document.getElementById('code-input').value.trim();
-  if (!code) return;
-
   try {
-    const res = await fetch(`${API_BASE}/admin/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code }),
-    });
+    const res  = await fetch(`${API_BASE}/admin/login`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ code }) });
     const data = await res.json();
-
-    if (data.ok && data.token) {
+    if (data.ok) {
       adminToken = data.token;
       sessionStorage.setItem('admin_token', adminToken);
       showPanel();
     } else {
       document.getElementById('login-error').style.display = 'block';
     }
-  } catch(e) {
-    document.getElementById('login-error').textContent = 'Erreur réseau. Vérifiez la config API.';
+  } catch {
+    document.getElementById('login-error').textContent = 'Erreur réseau.';
     document.getElementById('login-error').style.display = 'block';
   }
 }
 
 function showPanel() {
   document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('admin-panel').style.display = 'block';
-  loadData();
+  document.getElementById('admin-panel').style.display  = 'block';
+  loadAll();
+  autoRefresh = setInterval(loadAll, 15000);
 }
 
 function logout() {
   sessionStorage.removeItem('admin_token');
-  adminToken = null;
-  document.getElementById('login-screen').style.display = 'flex';
-  document.getElementById('admin-panel').style.display = 'none';
-  document.getElementById('code-input').value = '';
+  clearInterval(autoRefresh);
+  location.reload();
 }
 
-// ── LOAD DATA ─────────────────────────────────────────────────
-async function loadData() {
+// ── DATA ──────────────────────────────────────────────────────
+async function loadAll() {
   await loadStats();
-  await loadMessages();
+  await loadConversations();
+  if (activeConvId) await openConversation(activeConvId, false);
 }
 
 async function loadStats() {
   try {
-    const res = await fetch(`${API_BASE}/stats`);
+    const res  = await fetch(`${API_BASE}/stats`);
     const data = await res.json();
-
-    document.getElementById('a-unique').textContent = data.unique_visitors ?? '—';
-    document.getElementById('a-today').textContent = data.today_visits ?? '—';
-
-    // Graphique
-    if (data.week) {
-      const maxVal = Math.max(...data.week.map(d => d.visits), 1);
-      const barsEl = document.getElementById('week-chart-bars');
-      barsEl.innerHTML = data.week.map(d => `
-        <div class="chart-bar-wrap">
-          <div class="chart-bar" style="height:${Math.max(4, (d.visits / maxVal) * 72)}px"
-               title="${d.visits} visite(s)"></div>
-          <div class="chart-label">${d.date.slice(5)}</div>
-        </div>
-      `).join('');
-    }
-  } catch(e) {
-    console.log('Stats error:', e.message);
-  }
+    document.getElementById('s-unique').textContent = data.unique_visitors ?? '—';
+    document.getElementById('s-today').textContent  = data.today_visits    ?? '—';
+  } catch {}
 }
 
-async function loadMessages() {
+async function loadConversations() {
   try {
-    const res = await fetch(`${API_BASE}/admin/messages`, {
-      headers: { 'Authorization': 'Bearer ' + adminToken }
-    });
-
-    if (res.status === 401) {
-      logout();
-      return;
-    }
-
+    const res  = await fetch(`${API_BASE}/admin/conversations`, { headers:{ 'Authorization': 'Bearer ' + adminToken } });
+    if (res.status === 401) { logout(); return; }
     const data = await res.json();
-    const msgs = data.messages || [];
+    const convs = data.conversations || [];
 
-    document.getElementById('a-msgs').textContent = msgs.length;
-    document.getElementById('a-replied').textContent = msgs.filter(m => m.replied).length;
+    document.getElementById('s-convs').textContent  = convs.length;
+    document.getElementById('s-unread').textContent = convs.filter(c => c.unread_admin > 0).length;
+    document.getElementById('conv-count').textContent = convs.length + ' conversation(s)';
 
-    const list = document.getElementById('messages-list');
-
-    if (msgs.length === 0) {
-      list.innerHTML = `
-        <div class="empty-state">
-          <span class="emoji">📭</span>
-          <p>Aucun message pour l'instant.<br>Les messages des visiteurs apparaîtront ici.</p>
-        </div>`;
+    const list = document.getElementById('conv-list');
+    if (convs.length === 0) {
+      list.innerHTML = '<div style="padding:20px;text-align:center;color:var(--muted);font-size:0.82rem;">Aucune conversation pour l\'instant.</div>';
       return;
     }
 
-    list.innerHTML = msgs.map(msg => `
-      <div class="msg-card ${msg.replied ? 'replied' : 'unread'}" id="card-${msg.id}">
-        <div class="msg-card-head">
-          <span class="msg-sender">👤 ${escHtml(msg.name)}</span>
-          <div class="msg-meta">
-            <span class="msg-badge ${msg.replied ? 'done' : 'new'}">${msg.replied ? '✓ Répondu' : '● Nouveau'}</span>
-            <span class="msg-time">${formatDate(msg.ts)}</span>
-            <span class="msg-ip">🌍 ${msg.country || 'XX'} · ${msg.ip || '—'}</span>
-          </div>
+    list.innerHTML = convs.map(c => `
+      <div class="conv-item ${activeConvId === c.visitor_id ? 'active' : ''} ${c.unread_admin > 0 ? 'unread' : ''}"
+           onclick="openConversation('${c.visitor_id}')">
+        ${c.unread_admin > 0 ? '<div class="unread-dot"></div>' : ''}
+        <div class="conv-name">
+          👤 ${esc(c.name)}
+          <span class="badge ${c.status}">${c.status === 'open' ? 'Ouvert' : c.status === 'closed' ? 'Clôturé' : 'Bloqué'}</span>
         </div>
-        <div class="msg-body">${escHtml(msg.body)}</div>
-
-        ${msg.replied ? `
-          <div class="replied-msg">
-            ✅ <div><strong>Votre réponse :</strong><br>${escHtml(msg.reply)}<br><small style="opacity:0.7">${formatDate(msg.reply_ts)}</small></div>
-          </div>
-        ` : `
-          <div class="msg-actions">
-            <button class="btn-toggle" onclick="toggleReply('${msg.id}')">💬 Répondre</button>
-          </div>
-          <div class="msg-reply-area" id="reply-${msg.id}">
-            <textarea id="textarea-${msg.id}" placeholder="Votre réponse à ${escHtml(msg.name)}..."></textarea>
-            <div class="msg-actions">
-              <button class="btn-reply" onclick="sendReply('${msg.id}')">✈️ Envoyer la réponse</button>
-              <button class="btn-toggle" onclick="toggleReply('${msg.id}')">Annuler</button>
-            </div>
-          </div>
-        `}
+        <div class="conv-preview">${esc(c.last_msg || 'Aucun message')}</div>
+        <div class="conv-meta">
+          <span class="conv-time">${formatDate(c.last_activity)}</span>
+          <span style="font-size:0.65rem;color:var(--muted);">🌍 ${c.ip}</span>
+          ${c.unread_admin > 0 ? `<span style="font-size:0.65rem;background:var(--blue-mid);color:white;border-radius:10px;padding:1px 7px;">${c.unread_admin} non lu</span>` : ''}
+        </div>
       </div>
     `).join('');
-
-  } catch(e) {
-    console.log('Messages error:', e.message);
-    document.getElementById('messages-list').innerHTML = `
-      <div class="empty-state">
-        <span class="emoji">⚠️</span>
-        <p>Erreur de chargement. Vérifiez la config de l'API.</p>
-      </div>`;
-  }
+  } catch(e) { console.error(e); }
 }
 
-function toggleReply(msgId) {
-  const area = document.getElementById('reply-' + msgId);
-  area.classList.toggle('open');
-  if (area.classList.contains('open')) {
-    document.getElementById('textarea-' + msgId).focus();
-  }
-}
+async function openConversation(visitor_id, scroll = true) {
+  activeConvId = visitor_id;
 
-async function sendReply(msgId) {
-  const reply = document.getElementById('textarea-' + msgId).value.trim();
-  if (!reply) return;
+  // Highlight dans la liste
+  document.querySelectorAll('.conv-item').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.conv-item').forEach(el => {
+    if (el.onclick?.toString().includes(visitor_id)) el.classList.add('active');
+  });
 
   try {
-    const res = await fetch(`${API_BASE}/admin/reply`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + adminToken
-      },
-      body: JSON.stringify({ msg_id: msgId, reply })
-    });
+    const res  = await fetch(`${API_BASE}/admin/conversation?visitor_id=${visitor_id}`, { headers:{ 'Authorization': 'Bearer ' + adminToken } });
     const data = await res.json();
+    const conv = data.conversation;
+    if (!conv) return;
 
-    if (data.ok) {
-      showToast('✅ Réponse envoyée !');
-      await loadMessages(); // Rafraîchit la liste
-    } else {
-      showToast('❌ Erreur : ' + (data.error || 'inconnue'));
-    }
-  } catch(e) {
-    showToast('❌ Erreur réseau.');
+    renderConvMain(conv, scroll);
+    // Update unread dans la liste
+    loadConversations();
+  } catch(e) { console.error(e); }
+}
+
+function renderConvMain(conv, scroll = true) {
+  const main = document.getElementById('conv-main');
+  const isClosed  = conv.status === 'closed';
+  const isBlocked = conv.status === 'blocked';
+  const isOpen    = conv.status === 'open';
+
+  main.innerHTML = `
+    <div class="conv-main-head">
+      <div>
+        <h2>👤 ${esc(conv.name)} <span style="font-size:0.7rem;color:var(--muted);">· ${conv.ip}</span></h2>
+        <p>Débuté le ${formatDate(conv.started)} · ${conv.messages.length} message(s)</p>
+      </div>
+      <div class="conv-actions">
+        ${isOpen ? `
+          <button class="btn-close-conv" onclick="closeConv('${conv.visitor_id}')">🔒 Clôturer</button>
+          <button class="btn-block-conv" onclick="blockConv('${conv.visitor_id}')">🚫 Bloquer</button>
+        ` : `
+          <button class="btn-reopen-conv" onclick="reopenConv('${conv.visitor_id}')">🔓 Réouvrir</button>
+          ${isBlocked ? `<span style="font-size:0.72rem;color:var(--red);font-weight:600;">BLOQUÉ</span>` : `<span style="font-size:0.72rem;color:var(--muted);font-weight:600;">CLÔTURÉ</span>`}
+        `}
+      </div>
+    </div>
+
+    <div class="conv-messages" id="conv-msgs">
+      ${conv.messages.map(msg => `
+        <div style="display:flex;flex-direction:column;align-items:${msg.from === 'visitor' ? 'flex-end' : msg.from === 'admin' ? 'flex-start' : 'center'}">
+          <div class="msg-bubble ${msg.from}">
+            ${msg.from !== 'system' ? `<div style="font-size:0.62rem;opacity:0.6;margin-bottom:3px;">${msg.from === 'visitor' ? '👤 ' + esc(conv.name) : '👨‍🏫 M. Lacheheb'}</div>` : ''}
+            ${esc(msg.body)}
+            ${msg.from !== 'system' ? `<div class="msg-time ${msg.from === 'visitor' ? 'right' : ''}">${formatDate(msg.ts)}</div>` : ''}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+
+    ${isOpen ? `
+      <div class="conv-reply">
+        <textarea id="reply-input" placeholder="Votre réponse à ${esc(conv.name)}..." onkeydown="if(event.ctrlKey && event.key==='Enter') sendAdminReply('${conv.visitor_id}')"></textarea>
+        <button class="reply-send" onclick="sendAdminReply('${conv.visitor_id}')">Envoyer ↵</button>
+      </div>
+    ` : `
+      <div style="padding:12px;text-align:center;font-size:0.78rem;color:var(--muted);border-top:1px solid var(--border);">
+        ${isBlocked ? '🚫 Utilisateur bloqué — impossible de répondre' : '🔒 Conversation clôturée'}
+      </div>
+    `}
+  `;
+
+  if (scroll) {
+    setTimeout(() => {
+      const msgs = document.getElementById('conv-msgs');
+      if (msgs) msgs.scrollTop = msgs.scrollHeight;
+    }, 50);
   }
 }
 
-// ── UTILS ─────────────────────────────────────────────────────
-function escHtml(str) {
+async function sendAdminReply(visitor_id) {
+  const input = document.getElementById('reply-input');
+  const body  = input?.value?.trim();
+  if (!body) return;
+  input.value = '';
+  try {
+    const res  = await fetch(`${API_BASE}/admin/reply`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + adminToken },
+      body: JSON.stringify({ visitor_id, body }),
+    });
+    const data = await res.json();
+    if (data.ok) {
+      showToast('✅ Réponse envoyée !');
+      await openConversation(visitor_id);
+    }
+  } catch { showToast('❌ Erreur réseau.'); }
+}
+
+async function closeConv(visitor_id) {
+  if (!confirm('Clôturer cette conversation ?')) return;
+  await fetch(`${API_BASE}/admin/close`, { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+adminToken}, body: JSON.stringify({ visitor_id }) });
+  showToast('🔒 Conversation clôturée.');
+  await loadAll();
+}
+
+async function blockConv(visitor_id) {
+  if (!confirm('Bloquer cet utilisateur ? Il ne pourra plus envoyer de messages.')) return;
+  await fetch(`${API_BASE}/admin/block`, { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+adminToken}, body: JSON.stringify({ visitor_id }) });
+  showToast('🚫 Utilisateur bloqué.');
+  await loadAll();
+}
+
+async function reopenConv(visitor_id) {
+  await fetch(`${API_BASE}/admin/reopen`, { method:'POST', headers:{'Content-Type':'application/json','Authorization':'Bearer '+adminToken}, body: JSON.stringify({ visitor_id }) });
+  showToast('🔓 Conversation réouverte.');
+  await loadAll();
+}
+
+function esc(str) {
   const d = document.createElement('div');
   d.appendChild(document.createTextNode(str || ''));
   return d.innerHTML;
@@ -763,7 +376,7 @@ function escHtml(str) {
 function formatDate(iso) {
   if (!iso) return '—';
   const d = new Date(iso);
-  return d.toLocaleDateString('fr-FR', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
 }
 
 function showToast(msg) {
@@ -772,9 +385,6 @@ function showToast(msg) {
   t.style.display = 'block';
   setTimeout(() => t.style.display = 'none', 3500);
 }
-
-// Auto-refresh toutes les 60s
-setInterval(() => { if (adminToken) loadMessages(); }, 60000);
 </script>
 </body>
 </html>
